@@ -5,14 +5,12 @@ class UsersController < ApplicationController
 
   def index
     @project = current_user.projects.friendly.find(params[:project_id])
-    @users = @project.users
     @user = User.new
-    respond_with(@users)
+    respond_with(@project.users)
   end
 
   def create
     @project = current_user.projects.friendly.find(params[:project_id])
-    @users = @project.users
     @user = User.find_or_create_by(email: params[:user][:email]) do |u|
       # Set to true if the user was not found
       u.was_created = true
@@ -41,10 +39,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @project = current_user.projects.friendly.find(params[:project_id])
-    @user = @project.users.find(params[:id])
-    @project.users.delete(@user)
-    redirect_to project_users_url(@project)
+    project = current_user.projects.friendly.find(params[:project_id])
+    user = project.users.find(params[:id])
+    project.users.delete(user)
+
+    redirect_to project_users_url(project)
   end
 
 end
