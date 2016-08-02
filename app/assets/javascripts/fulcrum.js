@@ -13,7 +13,7 @@ $(function() {
     $(this).parent().fadeOut();
     return false;
   });
-  
+
   // keycut listener
   $('html').keypress(function(event){
       var code = event.which || event.keyCode;
@@ -48,7 +48,7 @@ $(function() {
             $('a.hide_in_progress').first().click();
           };
           break;
-        
+
         case 97: // a | Should only work without a focused element
           if (!$(':focus').length && window.projectView) {
             window.projectView.newStory();
