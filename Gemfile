@@ -70,12 +70,14 @@ end
 group :development do
   gem 'letter_opener'
   gem 'rack-mini-profiler'
+  gem 'web-console'
 end
 
 group :development, :test do
   gem 'jasmine-rails', '~> 0.12.6'
   gem 'phantomjs', '~> 1.9'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'sinon-rails'
 end
