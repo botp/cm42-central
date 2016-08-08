@@ -32,6 +32,8 @@ div.field, div.actions {
   padding: 0;
   display: inline;
   background-color: none;
+
+  @extend .has-error;
 }
 
 #error_explanation {

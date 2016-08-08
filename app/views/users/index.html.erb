@@ -2,61 +2,79 @@
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
 
-<h2>Add a new member</h2>
-<div class="form-wrapper add-member">
-  <%= form_for @user, url: project_users_path(@project, @user) do |f| %>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <h2>Add a new member</h2>
+    <div class="add-member">
+      <%= form_for @user,
+        url: project_users_path(@project, @user),
+        html: { class: 'form-horizontal' } do |f| %>
 
-    <div class="field-wrapper">
-      <%= f.label :email, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10"><%= f.text_field :email %></div>
-    </div>
+        <%= content_tag :div, class: 'alert alert-danger' do %>
+          <%= t('errors.template.header', :count => @user.errors.count, :model => @user.class.name.humanize) %>
 
-    <div class="field-wrapper">
-      <%= f.label :name, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10"><%= f.text_field :name %></div>
-    </div>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        <% end if @user.errors.any? %>
 
-    <div class="field-wrapper">
-      <%= f.label :username, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10"><%= f.text_field :username %></div>
-    </div>
+        <div class="form-group">
+          <%= f.label :email, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10"><%= f.text_field :email, class: 'form-control' %></div>
+        </div>
 
-    <div class="field-wrapper">
-      <%= f.label :initials, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10"><%= f.text_field :initials %></div>
-    </div>
+        <div class="form-group">
+          <%= f.label :name, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10"><%= f.text_field :name, class: 'form-control' %></div>
+        </div>
 
-    <div class="actions">
-      <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
-    </div>
-  <% end %>
-</div>
+        <div class="form-group">
+          <%= f.label :username, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10"><%= f.text_field :username, class: 'form-control' %></div>
+        </div>
 
-<h2>Project members</h2>
-<ul class="list-group members-list">
-  <% @project.users.each do |user| %>
-    <li class="list-group-item clearfix">
-      <div class="member-name">
-        <%= user %>
-      </div>
-      <%= link_to 'Remove', project_user_path(@project, user),
-      :confirm => "Are you sure you want to remove #{user.email} from this project?",
-      :method => :delete,
-      class: 'btn btn-danger btn-sm pull-right' %>
-    </li>
-  <% end %>
-</ul>
+        <div class="form-group">
+          <%= f.label :initials, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10"><%= f.text_field :initials, class: 'form-control' %></div>
+        </div>
 
-<h2>Registered Users</h2>
-<ul class="list-group members-list" style="max-height: 40em; overflow-y: scroll">
-  <% User.where.not(id: @project.users).each do |user| %>
-    <li class="list-group-item clearfix">
-      <%= content_tag :div, user, class: 'member-name' %>
-
-      <%= form_tag [@project, :users], method: :post, class: 'pull-right' do %>
-        <%= hidden_field_tag 'user[email]', user.email %>
-        <%= button_tag 'Add', class: 'btn btn-default btn-sm' %>
+        <div class="actions">
+          <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
+        </div>
       <% end %>
-    </li>
-  <% end %>
-</ul>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-6">
+    <h2>Project members</h2>
+    <ul class="list-group members-list">
+      <% @project.users.each do |user| %>
+        <li class="list-group-item clearfix">
+          <div class="member-name">
+            <%= user %>
+          </div>
+          <%= link_to 'Remove', project_user_path(@project, user),
+          :confirm => "Are you sure you want to remove #{user.email} from this project?",
+          :method => :delete,
+          class: 'btn btn-danger btn-sm pull-right' %>
+        </li>
+      <% end %>
+    </ul>
+
+    <h2>Registered Users</h2>
+    <ul class="list-group members-list" style="max-height: 40em; overflow-y: scroll">
+      <% User.where.not(id: @project.users).each do |user| %>
+        <li class="list-group-item clearfix">
+          <%= content_tag :div, user, class: 'member-name' %>
+
+          <%= form_tag [@project, :users], method: :post, class: 'pull-right' do %>
+            <%= hidden_field_tag 'user[email]', user.email %>
+            <%= button_tag 'Add', class: 'btn btn-default btn-sm' %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
