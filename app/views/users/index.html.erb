@@ -64,7 +64,7 @@
     </ul>
 
     <h2>Registered Users</h2>
-    <ul class="list-group members-list" style="max-height: 40em; overflow-y: scroll">
+    <ul class="list-group members-list" style="max-height: 40em; overflow-y: scroll; margin-top: 2em">
       <% User.where.not(id: @project.users).each do |user| %>
         <li class="list-group-item clearfix">
           <%= content_tag :div, user, class: 'member-name' %>

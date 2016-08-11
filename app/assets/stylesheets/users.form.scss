@@ -1,0 +1,14 @@
+.members-list,
+.add-member {
+  width: auto;
+}
+
+.add-member .field_with_errors {
+  padding: 0;
+  display: inline;
+  background-color: transparent;
+
+  @extend .has-error;
+}
+
+
