@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render 'refresh_user_list' }
+      format.js { render :refresh_user_list }
       format.html { redirect_to project_users_url(@project) }
     end
   end
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     flash[:notice] = "#{@user.email} was removed from this project"
 
     respond_to do |format|
-      format.js { render 'refresh_user_list' }
+      format.js { render :refresh_user_list }
       format.html { redirect_to project_users_url(@project) }
     end
   end
