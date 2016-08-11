@@ -1,0 +1,12 @@
+.members-list {
+  max-height: 40em;
+  overflow-y: auto;
+}
+
+.add-member .field_with_errors {
+  padding: 0;
+  display: inline;
+  background-color: transparent;
+
+  @extend .has-error;
+}
