@@ -28,6 +28,12 @@ div.field, div.actions {
   display: table;
 }
 
+.add-member .field_with_errors {
+  padding: 0;
+  display: inline;
+  background-color: none;
+}
+
 #error_explanation {
   width: 450px;
   border: 2px solid red;
