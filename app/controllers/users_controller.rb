@@ -35,15 +35,22 @@ class UsersController < ApplicationController
       end
     end
 
-    redirect_to project_users_url(@project)
+    respond_to do |format|
+      format.js { render 'refresh_user_list' }
+      format.html { redirect_to project_users_url(@project) }
+    end
   end
 
   def destroy
-    project = current_user.projects.friendly.find(params[:project_id])
-    user = project.users.find(params[:id])
-    project.users.delete(user)
+    @project = current_user.projects.friendly.find(params[:project_id])
+    @user = @project.users.find(params[:id])
+    @project.users.delete(@user)
+    flash[:notice] = "#{@user.email} was removed from this project"
 
-    redirect_to project_users_url(project)
+    respond_to do |format|
+      format.js { render 'refresh_user_list' }
+      format.html { redirect_to project_users_url(@project) }
+    end
   end
 
 end
