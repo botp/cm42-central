@@ -40,7 +40,7 @@ Fulcrum.TaskForm = Fulcrum.FormView.extend({
       },
 
       error: function(model, response) {
-        if(!response.responseText || response.responseText == '') return;
+        if(!response.responseText) return;
         var json = $.parseJSON(response.responseText);
         view.enableForm();
         model.set({errors: json.task.errors});
